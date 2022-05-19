@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>商品ページ</title>
+
+<style>
+	.items, 
+	.items tr{
+		width: 100%;
+	}
+</style>
+</head>
+<body>
+	<form>
+		<input type="text" placeholder="検索">
+		<input type="submit" value="検索" />
+	</form>
+	
+	<br>
+
+	<table class="items" border="1">
+
+		<tr>
+			<td rowspan="2">
+				画像
+			</td>
+			<td>商品名</td>
+		</tr>
+		<tr>
+			<td>詳細</td>
+		</tr>
+
+	</table>
+	<br>
+
+</body>
+</html>
