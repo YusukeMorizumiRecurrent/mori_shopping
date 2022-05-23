@@ -8,4 +8,5 @@ import com.example.demo.Entity.Items;
 @Repository
 public interface ItemRepository extends JpaRepository<Items, Integer> {
 
+
 }

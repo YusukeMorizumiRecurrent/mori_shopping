@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "category")
-public class Category {
+public class Categoies {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,16 +22,16 @@ public class Category {
 	@Column(name = "delete_flag")
 	private Integer deleteFlag;
 
-	public Category() {
+	public Categoies() {
 		super();
 	}
 
-	public Category(String name) {
+	public Categoies(String name) {
 		super();
 		this.name = name;
 	}
 
-	public Category(Integer code, String name) {
+	public Categoies(Integer code, String name) {
 		super();
 		this.code = code;
 		this.name = name;

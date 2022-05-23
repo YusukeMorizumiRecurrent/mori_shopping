@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>ユーザ情報の更新</title>
+</head>
+<body>
+	<h2>登録情報</h2>
+
+	<span th:text="${message}" style="color: red;"></span>
+
+	<form th:action="'/editUser/' + ${users.code}" method="post">
+		<table border="1">
+			<tr>
+			<tr>
+				<th>名前</th>
+				<td><input type="text" name="name" th:value="${users.name}"></td>
+			</tr>
+			<tr>
+				<th>住所</th>
+				<td><input type="text" name=address th:value="${users.address}"></td>
+			</tr>
+			<tr>
+				<th>電話番号</th>
+				<td><input type="text" name="tel" th:value="${users.tel}"></td>
+			</tr>
+						<tr>
+				<th>e-mail</th>
+				<td><input type="text" name="email" th:value="${users.email}"></td>
+			</tr>
+						<tr>
+				<th>パスワード</th>
+				<td><input type="text" name="pass" th:value="${users.pass}"></td>
+			</tr>
+		</table>
+		<br> <input type="submit" value="更新を確定する">
+	</form>
+
+		
+	
+</body>
+</html>

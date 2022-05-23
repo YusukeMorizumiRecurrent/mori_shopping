@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>登録情報</title>
+</head>
+<body>
+	<a href="/showItem">商品一覧に戻る</a>
+	<h2>登録情報</h2>
+
+	<table class="items" border="1">
+		<tr>
+			<th>名前</th>
+			<th>住所</th>
+			<th>電話番号</th>
+			<th>e-mail</th>
+			<th>パスワード</th>
+			<th>更新</th>
+
+		</tr>
+
+		<tr>
+			<td th:text="${session.userInfo.name}"></td>
+			<td th:text="${session.userInfo.address}"></td>
+			<td th:text="${session.userInfo.tel}"></td>
+			<td th:text="${session.userInfo.email}"></td>
+			<td th:text="${session.userInfo.pass}"></td>
+
+			<td>
+				<form th:action="'/userInfo/' + ${session.userInfo.code} + '/edit'">
+					<input type="submit" value="お客様情報を更新する">
+				</form>
+		</tr>
+	</table>
+
+
+
+
+
+</body>
+</html>
+</body>
+</html>

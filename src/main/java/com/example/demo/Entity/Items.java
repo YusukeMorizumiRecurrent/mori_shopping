@@ -26,7 +26,7 @@ public class Items {
 	
 	@Column(name="picture")
 	private String picture;
-	
+
 	@Column(name="stock")
 	private Integer stock;
 
@@ -43,14 +43,33 @@ public class Items {
 	private Date date;
 	
 	@Column(name="delete_flag")
-	private Integer delete_flag;
+	private Integer deleteFlag;
 	
 	public Items() {
 		
 	}
+	
+	
+
+	public Items(String name, Integer price, String picture, 
+			Integer stock, Integer categoryKey, Integer delivaryDays,
+			Integer sellerUserCode) {
+		super();
+		this.name = name;
+		this.price = price;
+		this.picture = picture;
+		this.stock = stock;
+		this.categoryKey = categoryKey;
+		this.delivaryDays = delivaryDays;
+		this.sellerUserCode = sellerUserCode;
+		this.date = new Date();
+		this.deleteFlag = 0;
+	}
+
+
 
 	public Items(Integer code, String name, Integer price, String picture, Integer stock, Integer categoryKey,
-			Integer delivaryDays, Integer sellerUserCode, Date date, Integer delete_flag) {
+			Integer delivaryDays, Integer sellerUserCode, Date date, Integer deleteFlag) {
 		super();
 		this.code = code;
 		this.name = name;
@@ -61,7 +80,7 @@ public class Items {
 		this.delivaryDays = delivaryDays;
 		this.sellerUserCode = sellerUserCode;
 		this.date = date;
-		this.delete_flag = delete_flag;
+		this.deleteFlag = deleteFlag;
 	}
 
 	public Integer getCode() {
@@ -100,8 +119,12 @@ public class Items {
 		return date;
 	}
 
-	public Integer getDelete_flag() {
-		return delete_flag;
+	public Integer getDeleteFlag() {
+		return deleteFlag;
+	}
+	
+	public void setStock(Integer stock) {
+		this.stock = stock;
 	}
 	
 	

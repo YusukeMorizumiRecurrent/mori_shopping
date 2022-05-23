@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>商品の更新</title>
+</head>
+<body>
+	<h1>登録商品の更新</h1>
+
+	<span th:text="${message}" style="color: red;"></span>
+
+	<form th:action="'/addItemResult/' + ${item.code}" method="post">
+		<table border="1">
+			<tr>
+				<tr>
+				<th>画像</th>
+				<td><input type="text" name="picture" th:value="${item.picture}"></td>
+			</tr>
+			<tr>
+				<th>商品名</th>
+				<td><input type="text" name="name" th:value="${item.name}"></td>
+			</tr>
+			<tr>
+				<th>カテゴリ</th>
+				<td><input type="text" name=categoryKey th:value="${item.categoryKey}"></td>
+			</tr>
+			<tr>
+				<th>値段</th>
+				<td><input type="text" name="price" th:value="${item.price}"></td>
+			</tr>
+						<tr>
+				<th>在庫数</th>
+				<td><input type="text" name="stock" th:value="${item.stock}"></td>
+			</tr>
+						<tr>
+				<th>配達日数</th>
+				<td><input type="text" name="delivaryDays" th:value="${item.delivaryDays}"></td>
+			</tr>
+		</table>
+		<br> <input type="submit" value="更新を確定する">
+	</form>
+</body>
+</html>

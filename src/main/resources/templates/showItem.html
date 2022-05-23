@@ -5,34 +5,52 @@
 <title>商品ページ</title>
 
 <style>
-	.items, 
-	.items tr{
-		width: 100%;
-	}
+.items, .items tr {
+	width: 100%;
+}
 </style>
 </head>
 <body>
-	<form>
+	<form action="/showItem" method="post">
 		<input type="text" placeholder="検索">
-		<input type="submit" value="検索" />
+　　　　 <input type="submit"value="検索" />
 	</form>
 	
+	<div>
+		<a href="/addItem">商品登録</a>
+		<p style="float: right; display: inline;margin: 0;">
+			<a href="/logout">ログアウト</a>
+			<a href="/userInfo">ユーザ情報を確認する</a><br>
+		</p>
+		
+	</div>
 	<br>
+	<form action="/order" method="get">
+		<table class="items" border="1">
+			<tr>
+				<th>画像</th>
+				<th>商品名</th>
+				<th>値段</th>
+				<th>個数</th>
+				<th>配達日数</th>
+			</tr>
 
-	<table class="items" border="1">
+			<tr th:each="item:${items}">
+				<td>
+					<img style="width: 100px" th:src="|/${item.picture}|" />
+				</td>
+				<td th:text="${item.name}"></td>
+				<td th:text="${item.price}"></td>
+				<td th:text="${item.stock}"></td>
+				<td th:text="${item.delivaryDays}"></td>
+				<td><a th:href="|/itemDetail/${item.code}|">詳細へ移動</a></td>
+			</tr>
+		</table>
+	</form>
 
-		<tr>
-			<td rowspan="2">
-				画像
-			</td>
-			<td>商品名</td>
-		</tr>
-		<tr>
-			<td>詳細</td>
-		</tr>
-
-	</table>
 	<br>
+	
+	<a href="/addItemResult">出品した商品を見る</a>
 
 </body>
 </html>
