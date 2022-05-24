@@ -3,19 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <title>ログイン</title>
+<link rel="stylesheet" href="./login.css">
 </head>
 <body>
-	<h2>ログイン</h2>
+	<h1 style="text-align:center">ログイン</h1>
 	<!-- エラーメッセ -->
 	<span th:text="${message}" style="color: red"></span>
 
 	<form action="/login" method="post">
-		 <input type="text" name="name" placeholder="名前" />
-		 <br>
-		 <input type="text" name="pass" placeholder="パスワード" /> 
-		 <br>
-		 <input
-			type="submit" value="ログイン" />
+		<table>
+			<tr>
+				<td>名 前</td>
+				<td>
+					<input type="text" name="name" />
+				</td>
+			</tr>
+			<tr>
+				<td>パスワード</td>
+				<td>
+					<input type="text" name="pass" />
+				</td>
+			</tr>
+		
+		</table>
+		
+		<input type="submit" value="ログイン" />
 	</form>
 </body>
 </html>

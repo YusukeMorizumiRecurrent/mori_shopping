@@ -58,6 +58,7 @@ public class OrderedController {
 			OrderDetail orderdetail = new OrderDetail(order_code, item.getCode(), 0);
 			orderDetailRepository.saveAndFlush(orderdetail);
 		}
+		session.removeAttribute("cart");
 		mv.setViewName("ordered");
 		
 		return mv;

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.Entity.Items;
+import com.example.demo.Entity.Users;
 import com.example.demo.Repository.CategoryRepository;
 import com.example.demo.Repository.ItemRepository;
 
@@ -28,15 +29,49 @@ public class ItemController {
 	@Autowired
 	CategoryRepository categoryRepository;
 
+
 	@RequestMapping(value = "/showItem")
 	public ModelAndView showItem(ModelAndView mv) {
 
 		List<Items> itemList = itemRepository.findAll();
+		mv.addObject("categories",categoryRepository.findAll());
 		mv.addObject("items", itemList);
 		mv.setViewName("showItem");
 
 		return mv;
 	}
+	/**
+	 * 検索機能
+	 * @param code
+	 * @param mv
+	 * @return
+	 */
+	@RequestMapping(value = "/search",method=RequestMethod.POST)
+	public ModelAndView searchItem(
+			@RequestParam("search") String search,
+			ModelAndView mv) {
+
+		List<Items> itemList = itemRepository.findByNameContains(search);
+		mv.addObject("items", itemList);
+		mv.setViewName("showItem");
+		
+		return mv;
+	}
+	
+	@RequestMapping(value="/showItem/{code}")
+	public ModelAndView showItemByCode(
+			@PathVariable(name = "code") Integer code,
+			ModelAndView mv) {
+		
+		List<Items> itemList = itemRepository.findByCategoryKey(code);
+
+		
+		mv.addObject("categories",categoryRepository.findAll());
+		mv.addObject("items", itemList);
+		mv.setViewName("showItem");
+		return mv;
+	}
+	
 
 	@RequestMapping("/itemDetail/{code}")
 	public ModelAndView itemDetail(@PathVariable("code") Integer code, ModelAndView mv) {
@@ -50,28 +85,34 @@ public class ItemController {
 
 	@RequestMapping(value = "/addItem", method = RequestMethod.GET)
 	public ModelAndView addItem(ModelAndView mv) {
+		
 		return mv;
 	}
 
 	@RequestMapping(value = "/addItem", method = RequestMethod.POST)
-	public ModelAndView addItem(@RequestParam(name = "name", defaultValue = "") String name,
+	public ModelAndView addItem(@RequestParam(name = "code", defaultValue = "") String code,
+			@RequestParam(name = "name", defaultValue = "") String name,
 			@RequestParam(name = "categoryKey", defaultValue = "1") Integer categoryKey,
 			@RequestParam(name = "price", defaultValue = "") Integer price,
 			@RequestParam(name = "stock", defaultValue = "") Integer stock,
 			@RequestParam(name = "picture", defaultValue = "") String picture,
-			@RequestParam(name = "delivaryDays", defaultValue = "") Integer delivaryDays,
-			@RequestParam(name = "sellerUserCode", defaultValue = "1") Integer sellerUserCode, ModelAndView mv) {
+			@RequestParam(name = "delivaryDays", defaultValue = "") Integer delivaryDays,ModelAndView mv) {
 
 		if (isNull(name) || isNull(categoryKey) || isNull(price) || isNull(stock) || isNull(picture)
 				|| isNull(delivaryDays)) {
 			mv.addObject("message", "未入力の項目があります");
 			mv.setViewName("addItem");
+			
+			
+			return mv;
+			
 		}
-		Items items = new Items(name, price, picture, stock, categoryKey, delivaryDays, sellerUserCode);
+		Users user = (Users)session.getAttribute("userInfo");
+		
+		Items items = new Items(name, price, picture, stock, categoryKey, delivaryDays, user.getCode());
 		itemRepository.saveAndFlush(items);
 
-
-		mv.addObject("items", itemRepository.findAll());
+		mv.addObject("items", itemRepository.findBySellerUserCode(user.getCode()));
 		mv.setViewName("addItemResult");
 
 		return mv;
@@ -90,6 +131,8 @@ public class ItemController {
 		// 商品の登録
 		Items items = (Items) session.getAttribute("itemInfo");
 		itemRepository.saveAndFlush(items);
+		
+		session.setAttribute("itemInfo", items);
 
 		mv.setViewName("addItemResult");
 		return mv;
@@ -114,26 +157,35 @@ public class ItemController {
 	 */
 
 	@RequestMapping(value = "/addItemResult/{code}", method = RequestMethod.POST)
-	public ModelAndView editItem(@RequestParam(name = "code", defaultValue = "") Integer code,
+	public ModelAndView editItem(@PathVariable(name = "code") Integer code,
 			@RequestParam(name = "name", defaultValue = "") String name,
 			@RequestParam(name = "categoryKey", defaultValue = "1") Integer categoryKey,
 			@RequestParam(name = "price", defaultValue = "") Integer price,
 			@RequestParam(name = "stock", defaultValue = "") Integer stock,
 			@RequestParam(name = "picture", defaultValue = "") String picture,
-			@RequestParam(name = "delivaryDays", defaultValue = "") Integer delivaryDays,
-			@RequestParam(name = "sellerUserCode", defaultValue = "1") Integer sellerUserCode, ModelAndView mv) {
+			@RequestParam(name = "delivaryDays", defaultValue = "") Integer delivaryDays,ModelAndView mv) {
+		Items items = itemRepository.findById(code).get();
 
 		if (isNull(name) || isNull(price) || isNull(stock)|| isNull(categoryKey)|| isNull(delivaryDays)) {
-			Items items = itemRepository.findById(code).get();
 
 			mv.addObject("item", items);
 			mv.addObject("message", "未入力の項目があります");
 			mv.setViewName("editItem");
 		} else {
-			Items items = new Items(name, price, picture, stock, categoryKey, delivaryDays, sellerUserCode);
-			itemRepository.saveAndFlush(items);
 
-			mv.addObject("items", itemRepository.findAll());
+			items.setName(name);
+			items.setCategoryKey(categoryKey);
+			items.setPrice(price);
+			items.setStock(stock);
+			items.setPicture(picture);
+			items.setDelivaryDays(delivaryDays);
+			
+			itemRepository.saveAndFlush(items);
+			
+			Users user = (Users) session.getAttribute("userInfo");
+
+//			mv.addObject("items", itemRepository.findById(code).get());
+			mv.addObject("items", itemRepository.findBySellerUserCode(user.getCode()));
 			mv.setViewName("addItemResult");
 		}
 		return mv;
@@ -144,7 +196,7 @@ public class ItemController {
 	 * データの削除処理
 	 * 
 	 * @param code
-	 * @param mv
+	 * @param mv 
 	 * @return
 	 */
 	@RequestMapping(value = "/addItemResult/{code}/delete", method = RequestMethod.POST)
@@ -152,8 +204,11 @@ public class ItemController {
 
 		itemRepository.deleteById(code);
 		itemRepository.flush();
-
-		mv.addObject("items", itemRepository.findAll());
+		
+		Users user = (Users) session.getAttribute("userInfo");
+		
+		mv.addObject("items", itemRepository.findBySellerUserCode(user.getCode()));
+//		mv.addObject("items", itemRepository.findAll());
 		mv.setViewName("addItemResult");
 
 		return mv;
@@ -162,9 +217,10 @@ public class ItemController {
 	
 	@RequestMapping("/addItemResult")
 	public ModelAndView jumpItemResult(ModelAndView mv) {
-		
 
-		mv.addObject("items", itemRepository.findAll());
+		Users user = (Users)session.getAttribute("userInfo");
+
+		mv.addObject("items", itemRepository.findBySellerUserCode(user.getCode()));
 		mv.setViewName("addItemResult");
 		return mv;
 	}

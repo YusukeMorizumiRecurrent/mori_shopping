@@ -9,48 +9,79 @@
 	width: 100%;
 }
 </style>
+<link rel="stylesheet" href="/showItem.css">
 </head>
 <body>
-	<form action="/showItem" method="post">
-		<input type="text" placeholder="検索">
-　　　　 <input type="submit"value="検索" />
+
+	<form action="/search" method="post">
+		<input type="text" name="search" placeholder="検索"> <input
+			type="submit" value="検索" />
 	</form>
-	
+
+	<span th:text="'('+${session.userInfo.name}+'がログイン中)'"></span>
+
 	<div>
-		<a href="/addItem">商品登録</a>
-		<p style="float: right; display: inline;margin: 0;">
-			<a href="/logout">ログアウト</a>
-			<a href="/userInfo">ユーザ情報を確認する</a><br>
+		<a href="/addItem">商品登録</a><br> <a href="/addItemResult">出品した商品を見る</a>
+		<p style="float: right; display: inline; margin: 0;">
+			<a href="/userInfo">ユーザ情報を確認する</a><br> <a href="/logout">ログアウト</a>
 		</p>
-		
+
 	</div>
-	<br>
+	<a href="/showItem">全商品表示</a>
+	<a th:each="c:${categories}" th:href="'/showItem/'+${c.code}"> <span
+		th:text="${c.name}" style="padding-left: 10px;"></span>
+	</a>
+
+
+
+	<table class="itemview-1">
+		<!-- このtrにeach属性をつけてあげてください -->
+		<tr th:each="item:${items}">
+			<td>
+				<!-- 画像 srcは「th:src」でそれぞれのFileに即してあげてください --> 
+				<img th:src="|/${item.picture}|" />
+			</td>
+
+			<td>
+				<p>
+					<b th:text="${item.name}"></b>
+					<!--  &emsp;/在庫&nbsp;<span></span> -->
+				</p>
+				<p>
+					￥<span th:text="${item.price}"></span>-
+				</p> <!-- 改行が必要なごとに、pタグでパーテーションを作成してください -->
+				<p>
+					配達日数: <span th:text="${item.delivaryDays}">日</span>
+				</p>
+				<p class="buttons">
+					<!-- 必要なボタンをこちらに配置してください -->
+					<a th:href="|/itemDetail/${item.code}|">詳細へ移動 </a>
+				</p>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>
+<!-- 	<br>
 	<form action="/order" method="get">
 		<table class="items" border="1">
 			<tr>
 				<th>画像</th>
 				<th>商品名</th>
 				<th>値段</th>
-				<th>個数</th>
+								<th>個数</th>
 				<th>配達日数</th>
 			</tr>
 
 			<tr th:each="item:${items}">
-				<td>
-					<img style="width: 100px" th:src="|/${item.picture}|" />
-				</td>
+				<td><img style="width: 100px" th:src="|/${item.picture}|" /></td>
 				<td th:text="${item.name}"></td>
 				<td th:text="${item.price}"></td>
-				<td th:text="${item.stock}"></td>
+								<td th:text="${item.stock}"></td>
 				<td th:text="${item.delivaryDays}"></td>
 				<td><a th:href="|/itemDetail/${item.code}|">詳細へ移動</a></td>
 			</tr>
 		</table>
 	</form>
 
-	<br>
-	
-	<a href="/addItemResult">出品した商品を見る</a>
-
-</body>
-</html>
+	<br> -->

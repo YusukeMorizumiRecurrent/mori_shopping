@@ -1,0 +1,30 @@
+@charset "UTF-8";
+body{
+    position:relative;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+#top-menu{
+    position: fixed;
+    top:0;
+    left: 0;
+    width: 100%;
+    /* 背景色: カラーコードで検索 */
+    background-color: #f0ffff;
+
+    /* 下線 */
+    border-bottom: 1px solid #aaa;
+
+    /* 内部に取る余白 */
+    padding: 10px;
+}
+
+#content-body{
+    display: block;
+    position: initial;
+
+    /* 表示開始位置調整用 */
+    padding-top: 50px;
+}

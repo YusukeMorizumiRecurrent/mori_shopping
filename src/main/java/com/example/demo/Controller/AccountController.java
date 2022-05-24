@@ -62,9 +62,11 @@ public class AccountController {
 			} else {
 
 				session.setAttribute("userInfo", users);
+				session.setAttribute("categories",categoryRepository.findAll());
 
 				List<Items> itemList = itemRepository.findAll();
 				mv.addObject("items", itemList);
+				mv.addObject("categories",categoryRepository.findAll());
 
 				mv.addObject("users", users);
 				mv.setViewName("showItem");

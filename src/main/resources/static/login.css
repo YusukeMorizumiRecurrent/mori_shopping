@@ -1,0 +1,32 @@
+@charset "UTF-8";
+
+body{
+	background-color: #ffd5d2;
+	height: 100%;
+
+	
+}
+
+form{
+	text-align: center;
+	font-size: 30px;
+}
+
+table{
+	
+	  width: 50%;
+	  margin: auto;
+	
+}
+tr{
+	width: 150%;
+}
+
+td:first-child{
+	width: 150px;
+}
+
+td > input {
+	width: 70%;
+	font-size: 30px;
+}
