@@ -3,10 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <title>商品登録</title>
+<link rel="stylesheet" href="/addItem.css">
 </head>
 <body>
-	<h2>商品登録</h2>
-	<span th:text="${message}" style="color: red"></span>
+	<a href="/showItem">商品一覧に戻る</a>
+	<h1 style="text-align: center">商品登録</h1>
+	<p style="text-align: center">
+		<span th:text="${message}" style="color: red"></span>
+	</p>
 	<form action="/addItem" method="post">
 		<table>
 			<tr>
@@ -25,7 +29,7 @@
 				<td>数量</td>
 				<td><input type="text" name="stock" /></td>
 			</tr>
-						<tr>
+			<tr>
 				<td>配達日数</td>
 				<td><input type="text" name="delivaryDays" /></td>
 			</tr>

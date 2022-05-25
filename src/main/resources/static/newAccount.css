@@ -1,5 +1,4 @@
 @charset "UTF-8";
-
 body {
   overflow: visible !important;
   background: -webkit-linear-gradient(45deg, #085078 10%, #85d8ce 90%);
@@ -15,8 +14,10 @@ form{
 }
 
 table{
+	
 	  width: 50%;
 	  margin: auto;
+	
 }
 tr{
 	width: 150%;
@@ -30,11 +31,13 @@ td > input {
 	width: 70%;
 	font-size: 30px;
 }
-span{
-	font-size: 30px;
-}
+
 input{
-	width: 150px;
+	width: 200px;
+	font-size: 20px;
+}
+
+p{
 	font-size: 20px;
 }
  a{

@@ -9,36 +9,32 @@ body {
   background: linear-gradient(45deg, #085078 10%, #85d8ce 90%);
  }
 
-form{
+form {
 	text-align: center;
 	font-size: 30px;
 }
 
-table{
-	  width: 50%;
-	  margin: auto;
+table {
+	width: 70%;
+	margin: auto;
+	font-size: 25px;
 }
-tr{
+
+tr {
 	width: 150%;
 }
 
-td:first-child{
+td:first-child {
 	width: 150px;
 }
 
-td > input {
-	width: 70%;
-	font-size: 30px;
+input {
+	width: 200px;
+	font-size: 25px;
 }
-span{
-	font-size: 30px;
-}
-input{
-	width: 150px;
-	font-size: 20px;
-}
- a{
-   color:#ffffff;
-   text-decoration:none;
-   font-size: 25px;
+
+a {
+	color: #ffffff;
+	text-decoration: none;
+	 font-size: 25px;
 }

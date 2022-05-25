@@ -2,13 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>商品詳細</title>
+<link rel="stylesheet" href="/itemDetail.css">
 </head>
 <body>
 	<a href="/showItem">商品一覧へ移動</a>
 
 	<hr>
-	
+
 	<table class="items" border="1">
 		<tr>
 			<th>画像</th>
@@ -18,7 +19,7 @@
 		</tr>
 
 		<tr th:each="item:${items}">
-			<td><img style="width: 100px" th:src="|/${item.picture}|" /></td>
+			<td><img style="width: 250px" th:src="|/${item.picture}|" /></td>
 			<td th:text="${item.name}"></td>
 			<td th:text="${item.price}"></td>
 			<td th:text="${item.stock}"></td>

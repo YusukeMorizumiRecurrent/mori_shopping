@@ -6,9 +6,10 @@
 <link rel="stylesheet" href="./login.css">
 </head>
 <body>
+<a href="/">戻る</a>
 	<h1 style="text-align:center">ログイン</h1>
 	<!-- エラーメッセ -->
-	<span th:text="${message}" style="color: red"></span>
+	<p style="text-align:center"><span th:text="${message}" style="color: red"></span></p>
 
 	<form action="/login" method="post">
 		<table>

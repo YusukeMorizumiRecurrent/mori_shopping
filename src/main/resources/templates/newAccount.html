@@ -3,10 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <title>新規登録</title>
+<link rel="stylesheet" href="newAccount.css">
 </head>
 <body>
-	<h1>新規登録</h1>
-	<span th:text="${message}" style="color: red"></span>
+	<a href="/login">ログイン画面に進む</a>
+
+	<h1 style="text-align:center">新規登録</h1>
+	<p style="text-align:center"><span th:text="${message}" style="color: red"></span></p>
 	<form action=/newAccount method="post">
 		<table>
 			<tr>

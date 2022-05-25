@@ -1,0 +1,76 @@
+@charset "UTF-8";
+
+body{
+  margin: 10;
+  padding: 0;
+  background: #edf1fa;
+}
+
+.box img{
+  width: 100%;
+  height: auto;
+}
+p{
+  margin: 0;
+  padding: 5px;
+  color: #000000;
+  font-size: 40px;
+  background-color: rgba(255,255,255,0.8);
+  border: 3px solid red;
+  border-radius: 20px;
+}
+
+.box{
+  position: relative;
+}
+.top-left {
+  position: absolute;
+  top: 25px;
+  left: 25px;
+}
+.top-left1 {
+  position: absolute;
+  top: 120px;
+  left: 120px;
+}
+.top-left2 {
+  position: absolute;
+  top: 250px;
+  left: 90px;
+}
+.top-left3 {
+  position: absolute;
+  top: 35px;
+  left: 500px;
+}
+.top-left4 {
+  position: absolute;
+  top: 170px;
+  left: 360px;
+}
+.top-left5 {
+  position: absolute;
+  top: 436px;
+  left: 360px;
+}
+.top-right {
+  position: absolute;
+  top: 70px;
+  right: 25px;
+}
+.bottom-left {
+  position: absolute;
+  bottom: 25px;
+  left: 25px;
+}
+.bottom-right {
+  position: absolute;
+  bottom: 25px;
+  right: 25px;
+}
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

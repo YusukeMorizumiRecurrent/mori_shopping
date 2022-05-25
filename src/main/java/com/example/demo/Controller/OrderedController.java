@@ -83,6 +83,11 @@ public class OrderedController {
 		}
 		return cart;
 	}
+	
+	@RequestMapping("/money")
+	public String money() {
+		return "money";
+	}
 
 }
 

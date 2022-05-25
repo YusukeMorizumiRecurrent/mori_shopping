@@ -3,29 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <title>登録情報</title>
+<link rel="stylesheet" href="/userInfo.css">
 </head>
 <body>
-	<a href="/showItem">商品一覧に戻る</a>
-	<h2>登録情報</h2>
+	<a href="/showItem" style="text-align:center">商品一覧に戻る</a>
+	<h2 style="text-align:center">登録情報</h2>
 
 	<table class="items" border="1">
 		<tr>
 			<th>名前</th>
-			<th>住所</th>
-			<th>電話番号</th>
-			<th>e-mail</th>
-			<th>パスワード</th>
-			<th>更新</th>
-
-		</tr>
-
-		<tr>
 			<td th:text="${session.userInfo.name}"></td>
+		</tr>
+		<tr>
+			<th>住所</th>
 			<td th:text="${session.userInfo.address}"></td>
+		</tr>
+		<tr>
+			<th>電話番号</th>
 			<td th:text="${session.userInfo.tel}"></td>
+		</tr>
+		<tr>
+			<th>e-mail</th>
 			<td th:text="${session.userInfo.email}"></td>
+		</tr>
+		<tr>
+			<th>パスワード</th>
 			<td th:text="${session.userInfo.pass}"></td>
-
+		</tr>
+		<tr>
+			<th>更新</th>
 			<td>
 				<form th:action="'/userInfo/' + ${session.userInfo.code} + '/edit'">
 					<input type="submit" value="お客様情報を更新する">

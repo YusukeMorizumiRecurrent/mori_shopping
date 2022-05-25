@@ -6,7 +6,7 @@
 
 <style>
 .items, .items tr {
-	width: 100%;
+	width: 150%;
 }
 </style>
 <link rel="stylesheet" href="/showItem.css">
@@ -18,7 +18,8 @@
 			type="submit" value="検索" />
 	</form>
 
-	<span th:text="'('+${session.userInfo.name}+'がログイン中)'"></span>
+	<span class="loginName"
+		th:text="'('+${session.userInfo.name}+'がログイン中)'"></span>
 
 	<div>
 		<a href="/addItem">商品登録</a><br> <a href="/addItemResult">出品した商品を見る</a>
@@ -38,8 +39,8 @@
 		<!-- このtrにeach属性をつけてあげてください -->
 		<tr th:each="item:${items}">
 			<td>
-				<!-- 画像 srcは「th:src」でそれぞれのFileに即してあげてください --> 
-				<img th:src="|/${item.picture}|" />
+				<!-- 画像 srcは「th:src」でそれぞれのFileに即してあげてください --> <img
+				th:src="|/${item.picture}|" />
 			</td>
 
 			<td>
@@ -55,7 +56,12 @@
 				</p>
 				<p class="buttons">
 					<!-- 必要なボタンをこちらに配置してください -->
-					<a th:href="|/itemDetail/${item.code}|">詳細へ移動 </a>
+					<!-- 					<a th:href="|/itemDetail/${item.code}|">詳細へ移動 </a> -->
+					<a th:href="|/itemDetail/${item.code}|"
+						class="btn btn-radius-solid">詳細へ移動<i
+						class="fas fa-angle-right fa-position-right"></i></a> <a
+						th:href="'/cart/add/' + ${item.code}" class="btn btn-radius-solid">カートに追加<i
+						class="fas fa-angle-right fa-position-right"></i></a>
 				</p>
 			</td>
 		</tr>
