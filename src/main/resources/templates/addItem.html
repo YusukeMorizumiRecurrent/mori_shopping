@@ -11,7 +11,7 @@
 	<p style="text-align: center">
 		<span th:text="${message}" style="color: red"></span>
 	</p>
-	<form action="/addItem" method="post">
+	<form action="/addItem" method="post" onsubmit="return chk01(event);">
 		<table>
 			<tr>
 				<td>商品名</td>
@@ -19,19 +19,19 @@
 			</tr>
 			<tr>
 				<td>カテゴリ</td>
-				<td><input type="text" name="categoryKey" /></td>
+				<td><input type="text" name="categoryKey" id="categoryKey" /></td>
 			</tr>
 			<tr>
 				<td>値段</td>
-				<td><input type="text" name="price" /></td>
+				<td><input type="text" name="price" id="price"/></td>
 			</tr>
 			<tr>
 				<td>数量</td>
-				<td><input type="text" name="stock" /></td>
+				<td><input type="text" name="stock" id="stock"/></td>
 			</tr>
 			<tr>
 				<td>配達日数</td>
-				<td><input type="text" name="delivaryDays" /></td>
+				<td><input type="text" name="delivaryDays" id="delivaryDays"/></td>
 			</tr>
 			<tr>
 				<td>画像</td>
@@ -40,6 +40,29 @@
 		</table>
 		<br> <input type="submit" value="商品を登録する" />
 	</form>
+	<a>カテゴリ欄には数字を記入してください</a>
+	<br>
+	<a>1.ゲーム 2．本 3．音楽 4.生物 5．雑貨 6．レンタル彼女</a>
 
+<script type="text/javascript">
+
+	function chk01(e){
+		// categoryKeyの値を取得
+		let categoryKey = document.getElementById("categoryKey");
+		let price = document.getElementById("price");
+		let stock = document.getElementById("stock");
+		let delivaryDays = document.getElementById("delivaryDays");
+		
+		let reg = new RegExp(/^[0-9]+$/);
+		if(reg.test(categoryKey.value) && reg.test(stock.value) && reg.test(price.value) && reg.test(delivaryDays.value)){
+			return true;
+		}
+		else{
+			window.alert("数値で入力してください");
+			return false;
+		}
+
+	}
+</script>
 </body>
 </html>

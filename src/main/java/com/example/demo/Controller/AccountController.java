@@ -35,7 +35,6 @@ public class AccountController {
 
 	@RequestMapping("/")
 	public String login() {
-		session.invalidate();
 		return "index";
 	}
 
@@ -62,11 +61,11 @@ public class AccountController {
 			} else {
 
 				session.setAttribute("userInfo", users);
-				session.setAttribute("categories",categoryRepository.findAll());
+				session.setAttribute("categories", categoryRepository.findAll());
 
 				List<Items> itemList = itemRepository.findAll();
 				mv.addObject("items", itemList);
-				mv.addObject("categories",categoryRepository.findAll());
+				mv.addObject("categories", categoryRepository.findAll());
 
 				mv.addObject("users", users);
 				mv.setViewName("showItem");
@@ -140,31 +139,48 @@ public class AccountController {
 	@RequestMapping(value = "/editUser/{code}", method = RequestMethod.POST)
 	public ModelAndView editUser(@PathVariable(name = "code") Integer code,
 			@RequestParam(name = "name", defaultValue = "") String name,
-			@RequestParam(name = "address", defaultValue = "1") String address,
+			@RequestParam(name = "address", defaultValue = "") String address,
 			@RequestParam(name = "tel", defaultValue = "") String tel,
 			@RequestParam(name = "email", defaultValue = "") String email,
 			@RequestParam(name = "pass", defaultValue = "") String pass, ModelAndView mv) {
 
 		if (isNull(name) || isNull(address) || isNull(tel) || isNull(email) || isNull(pass)) {
+
 			Users users = usersRepository.findById(code).get();
 
 			mv.addObject("users", users);
 			mv.addObject("message", "未入力の項目があります");
 			mv.setViewName("editUser");
 		} else {
-			Users user = usersRepository.findById(code).get();
+			// 同一の名前を持つデータがある場合、登録しない
 
-			user.setName(name);
-			user.setAddress(address);
-			user.setTel(tel);
-			user.setEmail(email);
-			user.setPass(pass);
+			// ユーザー情報からデータ取得
+			List<Users> userlist = usersRepository.findAllByNameAndCodeNot(name, code);
+			// 取得できた場合登録しない
+			if (userlist.size() > 0) {
+				Users users = usersRepository.findById(code).get();
 
-			usersRepository.saveAndFlush(user);
-			session.setAttribute("userInfo", user);
+				mv.addObject("users", users);
+				mv.addObject("message", "すでに登録してあります");
+				mv.setViewName("editUser");
+			}
+			// 大丈夫な場合は登録する
+			else {
 
-			mv.addObject("users", usersRepository.findAll());
-			mv.setViewName("userInfo");
+				Users user = usersRepository.findById(code).get();
+
+				user.setName(name);
+				user.setAddress(address);
+				user.setTel(tel);
+				user.setEmail(email);
+				user.setPass(pass);
+
+				usersRepository.saveAndFlush(user);
+				session.setAttribute("userInfo", user);
+
+				mv.addObject("users", usersRepository.findAll());
+				mv.setViewName("userInfo");
+			}
 		}
 		return mv;
 
@@ -172,7 +188,7 @@ public class AccountController {
 
 	@RequestMapping("/logout")
 	public String logout() {
-
+		session.invalidate();
 		return login();
 	}
 

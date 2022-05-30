@@ -11,5 +11,6 @@ import com.example.demo.Entity.Users;
 public interface UsersRepository extends JpaRepository<Users, Integer> {
 	Users findByNameAndPass(String name, String pass);
 	List<Users> findAllByName(String name);
+	List<Users> findAllByNameAndCodeNot(String name, Integer code);
 	
 }

@@ -53,6 +53,16 @@ p{
   top: 436px;
   left: 360px;
 }
+.top-left6 {
+  position: absolute;
+  top: 253px;
+  left: 2350px;
+}
+.top-left7 {
+  position: absolute;
+  top: 341px;
+  left: 533px;
+}
 .top-right {
   position: absolute;
   top: 70px;

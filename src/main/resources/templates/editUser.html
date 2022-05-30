@@ -3,11 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <title>ユーザ情報の更新</title>
+<link rel="stylesheet" href="/editUser.css">
 </head>
 <body>
-	<h2>登録情報</h2>
+	<h1 style="text-align:center">登録情報</h1>
 
-	<span th:text="${message}" style="color: red;"></span>
+	<p style="text-align:center"><span th:text="${message}" style="color: red;"></span></p>
 
 	<form th:action="'/editUser/' + ${users.code}" method="post">
 		<table border="1">

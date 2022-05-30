@@ -42,7 +42,6 @@
 				<!-- 画像 srcは「th:src」でそれぞれのFileに即してあげてください --> <img
 				th:src="|/${item.picture}|" />
 			</td>
-
 			<td>
 				<p>
 					<b th:text="${item.name}"></b>
@@ -58,9 +57,8 @@
 					<!-- 必要なボタンをこちらに配置してください -->
 					<!-- 					<a th:href="|/itemDetail/${item.code}|">詳細へ移動 </a> -->
 					<a th:href="|/itemDetail/${item.code}|"
-						class="btn btn-radius-solid">詳細へ移動<i
-						class="fas fa-angle-right fa-position-right"></i></a> <a
-						th:href="'/cart/add/' + ${item.code}" class="btn btn-radius-solid">カートに追加<i
+						class="btn btn-radius-solid">詳細へ移動<i class="fas fa-angle-right fa-position-right"></i></a> 
+						<a th:href="'/cart/add/' + ${item.code}" class="btn btn-radius-solid">カートに追加<i
 						class="fas fa-angle-right fa-position-right"></i></a>
 				</p>
 			</td>

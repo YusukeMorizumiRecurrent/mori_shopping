@@ -52,6 +52,7 @@ public class ItemController {
 			ModelAndView mv) {
 
 		List<Items> itemList = itemRepository.findByNameContains(search);
+		mv.addObject("categories",categoryRepository.findAll());
 		mv.addObject("items", itemList);
 		mv.setViewName("showItem");
 		
@@ -103,10 +104,9 @@ public class ItemController {
 			mv.addObject("message", "未入力の項目があります");
 			mv.setViewName("addItem");
 			
-			
 			return mv;
-			
 		}
+
 		Users user = (Users)session.getAttribute("userInfo");
 		
 		Items items = new Items(name, price, picture, stock, categoryKey, delivaryDays, user.getCode());
@@ -166,7 +166,7 @@ public class ItemController {
 			@RequestParam(name = "delivaryDays", defaultValue = "") Integer delivaryDays,ModelAndView mv) {
 		Items items = itemRepository.findById(code).get();
 
-		if (isNull(name) || isNull(price) || isNull(stock)|| isNull(categoryKey)|| isNull(delivaryDays)) {
+		if (isNull(name) || isNull(price) || isNull(stock)|| isNull(categoryKey)|| isNull(delivaryDays)|| isNull(picture)) {
 
 			mv.addObject("item", items);
 			mv.addObject("message", "未入力の項目があります");
